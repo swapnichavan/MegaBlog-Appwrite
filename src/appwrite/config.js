@@ -109,7 +109,7 @@ export class Service {
     }
   }
 
-  getPreview(fileId) {
+  getFilePreview(fileId) {
     try {
       return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
     } catch (error) {

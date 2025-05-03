@@ -5,6 +5,7 @@ import authService from "./appwrite/auth";
 import {login, logout} from "./store/authSlice";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import {Outlet} from "react-router-dom";
 
 function App() {
   console.log(import.meta.env.VITE_APPWRITE_URL);
@@ -31,10 +32,11 @@ function App() {
   }, []);
 
   return !loading ? (
-    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
-      <div className="w-full block">
+    <div className="min-h-screen flex flex-wrap justify-center content-between bg-gray-400 items-center">
+      <div className="max-w-full block">
         <Header />
         <p className="font-bold text-3xl">Todo</p>
+        <main>{/* <Outlet /> */}</main>
         <Footer />
       </div>
     </div>
