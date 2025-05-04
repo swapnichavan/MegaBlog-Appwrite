@@ -1,15 +1,16 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {Link, useNavigation} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import authService from "../appwrite/auth";
 import {useForm} from "react-hook-form";
 import Input from "./Input";
 import Button from "./Button";
+import {login} from "../store/authSlice";
 
 function SignUp() {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   const {register, handleSubmit} = useForm();
 
   const createAccount = async (data) => {
@@ -21,6 +22,10 @@ function SignUp() {
       if (account) {
         const user = await authService.getCurrentUser();
         console.log(user);
+        if (user) {
+          dispatch(login(user));
+          navigate("/");
+        }
       }
     } catch (error) {
       console.log(error);

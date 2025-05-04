@@ -1,13 +1,14 @@
-import conf from "../conf/conf";
+import conf from "../conf/conf.js";
 import {Client, Databases, Storage, ID, Query} from "appwrite";
 
 export class Service {
-  client = new Client();
+  // client = new Client();
+  client = Client;
   databases;
   bucket;
 
   constructor() {
-    this.client()
+    this.client = new this.client()
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
     this.databases = new Databases(this.client);
@@ -109,9 +110,10 @@ export class Service {
     }
   }
 
-  getFilePreview(fileId) {
+  getFileView(fileId) {
+    console.log(fileId);
     try {
-      return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+      return this.bucket.getFileView(conf.appwriteBucketId, fileId);
     } catch (error) {
       throw error;
     }

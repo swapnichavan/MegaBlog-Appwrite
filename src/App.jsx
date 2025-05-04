@@ -6,6 +6,8 @@ import {login, logout} from "./store/authSlice";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import {Outlet} from "react-router-dom";
+import RTE from "./components/RTE";
+import Home from "./components/Home";
 
 function App() {
   console.log(import.meta.env.VITE_APPWRITE_URL);
@@ -35,7 +37,9 @@ function App() {
     <div className="min-h-screen flex flex-wrap justify-center content-between bg-gray-400 items-center">
       <div className="max-w-full block">
         <Header />
-        <p className="font-bold text-3xl">Todo</p>
+        {/* <p className="font-bold text-3xl">Todo</p> */}
+        <Home />
+        {/* <RTE /> */}
         <main>{/* <Outlet /> */}</main>
         <Footer />
       </div>

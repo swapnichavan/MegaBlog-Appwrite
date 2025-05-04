@@ -7,6 +7,9 @@ import App from "./App.jsx";
 import store from "./store/store.js";
 import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
+import PostForm from "./components/PostForm/PostForm.jsx";
+import Post from "./components/Pages/Post.jsx";
+import AllPosts from "./components/AllPosts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,18 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignUp />,
+  },
+  {
+    path: "/add-post",
+    element: <PostForm />,
+  },
+  {
+    path: "post/:postId",
+    element: <Post />,
+  },
+  {
+    path: "all-posts",
+    element: <AllPosts />,
   },
 ]);
 // console.log(router);
