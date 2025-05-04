@@ -10,6 +10,8 @@ import SignUp from "./components/SignUp.jsx";
 import PostForm from "./components/PostForm/PostForm.jsx";
 import Post from "./components/Pages/Post.jsx";
 import AllPosts from "./components/AllPosts.jsx";
+import Home from "./components/Home.jsx";
+import EditPost from "./components/EditPost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,24 +19,84 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "signup",
-    element: <SignUp />,
-  },
-  {
-    path: "/add-post",
-    element: <PostForm />,
-  },
-  {
-    path: "post/:postId",
-    element: <Post />,
-  },
-  {
-    path: "all-posts",
-    element: <AllPosts />,
+    //   children: [
+    //     {
+    //       path: "/",
+    //       element: <Home />,
+    //     },
+    //     {
+    //       path: "/login",
+    //       element: (
+    //         < ={false}>
+    //           <Login />
+    //         </>   //       ),
+    //     },
+    //     {
+    //       path: "signup",
+    //       element: (
+    //         < ={false}>
+    //           <SignUp />
+    //         </>   //       ),
+    //     },
+    //     {
+    //       path: "/add-post",
+    //       element: (
+    //
+    //           <PostForm />
+    //         </>   //       ),
+    //     },
+    //     {
+    //       path: "post/:postId",
+    //       element: <Post />,
+    //     },
+    //     {
+    //       path: "all-posts",
+    //       element: (
+    //
+    //           <AllPosts />
+    //         </>   //       ),
+    //     },
+    //     {
+    //       path: "edit-post/:postId",
+    //       element: (
+    //
+    //           <EditPost />
+    //         </>   //       ),
+    //     },
+    // ],
+
+    /////
+
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+      {
+        path: "/add-post",
+        element: <PostForm />,
+      },
+      {
+        path: "post/:postId",
+        element: <Post />,
+      },
+      {
+        path: "all-posts",
+        element: <AllPosts />,
+      },
+      {
+        path: "edit-post/:postId",
+        element: <EditPost />,
+      },
+    ],
   },
 ]);
 // console.log(router);

@@ -8,7 +8,8 @@ import appwriteServices from "../../appwrite/config.js";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-function PostForm(post = "") {
+function PostForm({post}) {
+  console.log(post);
   const {register, handleSubmit, control, watch, setValue, getValues} = useForm(
     {
       defaultValues: {
@@ -26,19 +27,38 @@ function PostForm(post = "") {
 
   const submitPost = async (data) => {
     console.log(data);
-    const file = await appwriteServices.uploadFile(data.image[0]);
-    console.log(file);
-    if (file) {
-      const fileId = file.$id;
-      console.log(fileId);
-      data.featuredImage = fileId;
-      const dbPost = await appwriteServices.createPost({
+    if (post) {
+      const file = await appwriteServices.uploadFile(data.image[0]);
+      console.log(file);
+
+      if (file) {
+        appwriteServices.deleteFile(post.featuredImage);
+      }
+
+      const dbPost = await appwriteServices.updatePost(post.$id, {
         ...data,
-        userId: userData.$id,
+        featuredImage: file ? file.$id : undefined,
       });
+      console.log(dbPost);
+
       if (dbPost) {
-        console.log(dbPost);
         navigate(`/posts/${dbPost.$id}`);
+      }
+    } else {
+      const file = await appwriteServices.uploadFile(data.image[0]);
+      console.log(file);
+      if (file) {
+        const fileId = file.$id;
+        console.log(fileId);
+        data.featuredImage = fileId;
+        const dbPost = await appwriteServices.createPost({
+          ...data,
+          userId: userData.$id,
+        });
+        if (dbPost) {
+          console.log(dbPost);
+          navigate(`/posts/${dbPost.$id}`);
+        }
       }
     }
   };
@@ -87,8 +107,8 @@ function PostForm(post = "") {
           })}
         />
       </div>
-      {/* <Button type="submit">{post === "" ? "Submit" : "Update"}</Button> */}
-      <Button type="submit">Submit</Button>
+      <Button type="submit">{post === "" ? "Submit" : "Update"}</Button>
+      {/* <Button type="submit">Submit</Button> */}
     </form>
   );
 }

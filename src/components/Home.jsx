@@ -17,6 +17,9 @@ function Home() {
       {posts.length === 0 && (
         <h1 className="text-center">No posts available</h1>
       )}
+      {posts?.map((post) => (
+        <PostCard key={post.$id} {...post} />
+      ))}
     </div>
   );
 }
