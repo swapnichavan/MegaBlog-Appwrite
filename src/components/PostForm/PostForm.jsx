@@ -69,11 +69,13 @@ function PostForm({post}) {
         <Input
           label="Title"
           placeholder="Enter your title"
+          className="mb-4"
           {...register("title", {required: true})}
         />
         <Input
           label="Slug"
-          placeholder="Enter your slug"
+          placeholder="slug"
+          className="mb-4"
           {...register("slug", {required: true})}
         />
         <RTE
@@ -88,26 +90,31 @@ function PostForm({post}) {
           label="Featured Image"
           type="file"
           accept="image/*"
+          className="mb-4"
           {...register("image", {required: !post})}
         />
         {post && (
-          <div>
+          <div className="mb-4 w-full">
             <img
               // src={appwriteServices.getFilePreview(post?.featuredImage || null)}
               src={appwriteServices.getFileView(post?.featuredImage || null)}
               alt={post.title}
+              className="rounded-lg"
             />
           </div>
         )}
         <Select
           options={["active", "inactive"]}
           label="status"
+          className="mb-4"
           {...register("status", {
             required: true,
           })}
         />
       </div>
-      <Button type="submit">{post === "" ? "Submit" : "Update"}</Button>
+      <Button type="submit" bgColor={post ? "bg-green-500" : undefined}>
+        {post === "" ? "Submit" : "Update"}
+      </Button>
       {/* <Button type="submit">Submit</Button> */}
     </form>
   );
