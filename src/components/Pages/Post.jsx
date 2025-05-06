@@ -35,37 +35,36 @@ function Post() {
     });
   };
 
-  return (
-    <div className="flex flex-col items-center justify-center w-full h-screen">
-      {post ? (
-        <div>
-          <Container>
-            <div>
-              <img
-                src={appwriteService.getFileView(post?.featuredImage || null)}
-                alt={post.title}
-                width={40}
-              />
+  return post ? (
+    <div className="py-8">
+      <Container>
+        <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+          <img
+            src={appwriteService.getFileView(post?.featuredImage || null)}
+            alt={post.title}
+            // width={40}
+            className="rounded-xl"
+          />
+          {isAuther && (
+            <div className="absolute right-6 top-6">
+              <Link to={`/edit-post/${post.$id}`}>
+                <Button bgColor="bg-green-500" className="mr-3">
+                  Edit
+                </Button>
+              </Link>
+              <Button bgColor="bg-red-500" onClick={deletePost}>
+                Delete Post
+              </Button>
             </div>
-            <div>
-              {isAuther && (
-                <div>
-                  <Link to={`/edit-post/${post.$id}`}>
-                    <Button>Edit</Button>
-                  </Link>
-                  <Button onClick={deletePost}>Delete Post</Button>
-                </div>
-              )}
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold">{post.title}</h1>
-              {/* <div>{parse(post?.content)}</div> */}
-            </div>
-          </Container>
+          )}
         </div>
-      ) : null}
+        <div className="w-full mb-6">
+          <h1 className="text-2xl font-bold">{post.title}</h1>
+        </div>
+        {/* <div className="brwoser-css">{parse(post?.content)}</div> */}
+      </Container>
     </div>
-  );
+  ) : null;
 }
 
 export default Post;

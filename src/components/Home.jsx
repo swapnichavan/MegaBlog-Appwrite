@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import appwriteService from "../appwrite/config";
 import PostCard from "./PostCard";
-import {use} from "react";
+import Container from "../components/Container/Container";
 
 function Home() {
   const [posts, setPosts] = React.useState([]);
@@ -15,11 +15,29 @@ function Home() {
   return (
     <div>
       {posts.length === 0 && (
-        <h1 className="text-center">No posts available</h1>
+        <div className="w-full py-8 mt-4 text-center">
+          <Container>
+            <div className="flex flex-wrap">
+              <div className="p-2 w-full">
+                <h1 className="text-2xl font-bold hover:text-grey-500">
+                  Login to read posts
+                </h1>
+              </div>
+            </div>
+          </Container>
+        </div>
       )}
-      {posts?.map((post) => (
-        <PostCard key={post.$id} {...post} />
-      ))}
+      <div className="w-full py-8">
+        <Container>
+          <div className="flex flex-wrap">
+            {posts?.map((post) => (
+              <div key={post.$id} className="p-2 w-1/4">
+                <PostCard {...post} />
+              </div>
+            ))}
+          </div>
+        </Container>
+      </div>
     </div>
   );
 }

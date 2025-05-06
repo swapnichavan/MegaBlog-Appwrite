@@ -57,7 +57,7 @@ function PostForm({post}) {
         });
         if (dbPost) {
           console.log(dbPost);
-          navigate(`/posts/${dbPost.$id}`);
+          navigate(`/post/${dbPost.$id}`);
         }
       }
     }
@@ -113,7 +113,7 @@ function PostForm({post}) {
         />
       </div>
       <Button type="submit" bgColor={post ? "bg-green-500" : undefined}>
-        {post === "" ? "Submit" : "Update"}
+        {!post ? "Submit" : "Update"}
       </Button>
       {/* <Button type="submit">Submit</Button> */}
     </form>
