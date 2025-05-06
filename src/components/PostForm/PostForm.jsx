@@ -7,6 +7,7 @@ import RTE from "../RTE";
 import appwriteServices from "../../appwrite/config.js";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {setPosts} from "../../store/PostSlice.js";
 
 function PostForm({post}) {
   console.log(post);
@@ -57,6 +58,7 @@ function PostForm({post}) {
         });
         if (dbPost) {
           console.log(dbPost);
+
           navigate(`/post/${dbPost.$id}`);
         }
       }

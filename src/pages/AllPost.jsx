@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {Container, PostCard} from "../components";
 import {appwiteService} from "../services/appwiteService";
+import {useDispatch, useSelector} from "react-redux";
+import {setPosts} from "../store/PostSlice";
 
 function AllPost() {
-  const [posts, setPosts] = useState([]);
-
+  // const [posts, setPosts] = useState([]);
+  const posts = useSelector((state) => state.post.posts);
+  const dispatch = useDispatch();
   useEffect(() => {
     appwiteService
       .getAllPosts()
-      .then((posts) => setPosts(posts.documents))
+      .then((posts) => {
+        // setPosts(posts.documents)
+        dispatch(setPosts(posts.documents));
+      })
       .catch((error) => {
         console.error("Error fetching posts:", error);
       });

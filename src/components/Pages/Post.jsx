@@ -1,17 +1,20 @@
 import React, {useEffect} from "react";
 import {useParams, useNavigate, Link} from "react-router-dom";
 import appwriteService from "../../appwrite/config";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import Container from "../Container/Container";
 import Button from "../Button";
 import parse from "html-react-parser";
+import {setPost} from "../../store/PostSlice";
 
 function Post() {
-  const [post, setPost] = React.useState({});
+  // const [post, setPost] = React.useState({});
+  const post = useSelector((state) => state.post.post);
   const {postId} = useParams();
   console.log(useParams());
   const userData = useSelector((state) => state.auth.userData);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const isAuther = post && userData ? post.userId === userData.$id : false;
   console.log(isAuther);
@@ -20,7 +23,8 @@ function Post() {
     appwriteService.getPost(postId).then((post) => {
       console.log(post);
       if (post) {
-        setPost(post);
+        // setPost(post);
+        dispatch(setPost(post));
       }
     });
   }, [postId]);
@@ -42,7 +46,7 @@ function Post() {
           <img
             src={appwriteService.getFileView(post?.featuredImage || null)}
             alt={post.title}
-            // width={40}
+            width={100}
             className="rounded-xl"
           />
           {isAuther && (
@@ -61,7 +65,7 @@ function Post() {
         <div className="w-full mb-6">
           <h1 className="text-2xl font-bold">{post.title}</h1>
         </div>
-        {/* <div className="brwoser-css">{parse(post?.content)}</div> */}
+        <div className="brwoser-css">{parse(post?.content)}</div>
       </Container>
     </div>
   ) : null;
